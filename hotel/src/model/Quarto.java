@@ -4,14 +4,12 @@ public class Quarto {
 	private int numero;
 	private int capacidade;
 	private double diaria;
-	private boolean reservado;
 	
-	public Quarto(int numero, int capacidade, double diaria, boolean reservado) {
+	public Quarto(int numero, int capacidade, double diaria) {
 		super();
 		this.numero = numero;
 		this.capacidade = capacidade;
 		this.diaria = diaria;
-		this.reservado = reservado;
 	}
 	
 	public int getNumero() {
@@ -31,11 +29,5 @@ public class Quarto {
 	}
 	public void setDiaria(double diaria) {
 		this.diaria = diaria;
-	}
-	public boolean isReservado() {
-		return reservado;
-	}
-	public void setReservado(boolean reservado) {
-		this.reservado = reservado;
 	}
 }

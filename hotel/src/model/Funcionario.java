@@ -12,12 +12,12 @@ public class Funcionario {
 		this.senha = senha;
 	}
 
-	public boolean autentica(int senha) {
-		if(senha == this.senha) {
-			System.out.println("Acesso permitido.");
+	public boolean autentica(String nome, int senha) {
+		if(senha == this.senha && nome == this.nome) {
+			//System.out.println("Acesso permitido.");
 			return true;
 		} else {
-			System.out.println("Acesso negado.");
+			//System.out.println("Acesso negado.");
 			return false;
 		}
 	}
