@@ -12,7 +12,25 @@ public class InterfaceDeUsuario {
 	private int numClientes = 0;
 	private Funcionario[] funcionarios = new Funcionario[10];
 	private int numFuncionarios = 0;
+	Funcionario administrador = new Funcionario("ADMINISTRADOR", "00000000", 123456);
 	private Scanner input = new Scanner(System.in);
+	
+	public boolean login() {
+		System.out.println("0. Sair");
+		System.out.println("1. Entrar");
+		int escolha = input.nextInt();
+		if(escolha == 1) {
+			
+		}
+		return false;
+		//while(escolha==1) {
+			System.out.println("Nome: ");
+			String nome = input.nextLine();
+			System.out.println("Senha: ");
+			int senha = input.nextInt();
+			
+		}
+	}
 	
 	public int pegaOpcao() {
 		System.out.println("0. Logout");
@@ -36,7 +54,6 @@ public class InterfaceDeUsuario {
 		int numero, capacidade, senha;
 		double diaria;
 		
-		//Funcionario administrador = new Funcionario("ADMINISTRADOR", "99999999999", 123456);
 		int opcao = this.pegaOpcao();
 		while(opcao!=0) {
 			switch(opcao) {
@@ -72,7 +89,7 @@ public class InterfaceDeUsuario {
 				capacidade = input.nextInt();
 				System.out.println("Digite o valor da diária do quarto: ");
 				diaria = input.nextDouble();
-				quarto = new Quarto(numero, capacidade, diaria, false);
+				quarto = new Quarto(numero, capacidade, diaria);
 				quartos[numQuartos++] = quarto;
 				break;
 			case 4:
