@@ -77,7 +77,6 @@ public class InterfaceDeUsuario {
 				break;
 			case 4:
 				//Consultar quartos dispon�veis para reserva em um determinado per�odo
-				
 				break;
 			case 5:
 				//Realizar reserva

@@ -7,10 +7,10 @@ import java.util.GregorianCalendar;
 
 public class Reserva {
 	
-	/*
-	private Cliente = new Cliente();
-	private Quarto = new Quarto();
-	*/
+	private Cliente cliente = null;
+	private Calendar diaInicio = null;
+	private Calendar diaTermino = null;
+	
 
 	public void verificaReserva() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
