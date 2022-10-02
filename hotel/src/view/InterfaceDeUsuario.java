@@ -15,29 +15,12 @@ public class InterfaceDeUsuario {
 	Funcionario administrador = new Funcionario("ADMINISTRADOR", "00000000", 123456);
 	private Scanner input = new Scanner(System.in);
 	
-	public boolean login() {
-		System.out.println("0. Sair");
-		System.out.println("1. Entrar");
-		int escolha = input.nextInt();
-		if(escolha == 1) {
-			
-		}
-		return false;
-		//while(escolha==1) {
-			System.out.println("Nome: ");
-			String nome = input.nextLine();
-			System.out.println("Senha: ");
-			int senha = input.nextInt();
-			
-		}
-	}
-	
 	public int pegaOpcao() {
 		System.out.println("0. Logout");
 		System.out.println("1. Cadastrar Cliente");
-		System.out.println("2. Cadastrar funcionário com acesso ao sistema");
+		System.out.println("2. Cadastrar funcionï¿½rio com acesso ao sistema");
 		System.out.println("3. Cadastrar novo quarto");
-		System.out.println("4. Consultar quartos disponíveis para reserva em um determinado período");
+		System.out.println("4. Consultar quartos disponï¿½veis para reserva em um determinado perï¿½odo");
 		System.out.println("5. Realizar reserva");
 		System.out.println("6. Apresentar reservas registradas");
 		System.out.println("7. Apresentar clientes cadastrados");
@@ -69,13 +52,13 @@ public class InterfaceDeUsuario {
 				System.out.println("Cliente cadastrado.");
 				break;
 			case 2:
-				//Cadastrar funcionário com acesso ao sistema
+				//Cadastrar funcionï¿½rio com acesso ao sistema
 				input.nextLine();
-				System.out.println("Digite o cpf do funcionário: ");
+				System.out.println("Digite o cpf do funcionï¿½rio: ");
 				cpf = input.nextLine();
-				System.out.println("Digite o nome do funcionário: ");
+				System.out.println("Digite o nome do funcionï¿½rio: ");
 				nome = input.nextLine();
-				System.out.println("Digite uma senha para o funcionário:");
+				System.out.println("Digite uma senha para o funcionï¿½rio:");
 				senha = input.nextInt();
 				funcionario = new Funcionario(nome, cpf, senha);
 				funcionarios[numFuncionarios++] = funcionario;
@@ -87,13 +70,13 @@ public class InterfaceDeUsuario {
 				numero = input.nextInt();
 				System.out.println("Digite a capacidade do quarto: ");
 				capacidade = input.nextInt();
-				System.out.println("Digite o valor da diária do quarto: ");
+				System.out.println("Digite o valor da diï¿½ria do quarto: ");
 				diaria = input.nextDouble();
 				quarto = new Quarto(numero, capacidade, diaria);
 				quartos[numQuartos++] = quarto;
 				break;
 			case 4:
-				//Consultar quartos disponíveis para reserva em um determinado período
+				//Consultar quartos disponï¿½veis para reserva em um determinado perï¿½odo
 				
 				break;
 			case 5:
