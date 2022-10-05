@@ -12,6 +12,10 @@ public class Funcionario {
 		this.senha = senha;
 	}
 
+	public Funcionario() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public boolean autentica(String nome, int senha) {
 		if(senha == this.senha && nome == this.nome) {
 			//System.out.println("Acesso permitido.");

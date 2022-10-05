@@ -1,19 +1,48 @@
 package view;
 
 import java.util.Scanner;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import model.Cliente;
 import model.Funcionario;
 import model.Quarto;
+import model.Reserva;
 
 public class InterfaceDeUsuario {
 	private Quarto[] quartos = new Quarto[100];
 	private int numQuartos = 0;
 	private Cliente[] clientes = new Cliente[100];
 	private int numClientes = 0;
+	private Funcionario currentUser = new Funcionario();
 	private Funcionario[] funcionarios = new Funcionario[10];
 	private int numFuncionarios = 0;
-	Funcionario administrador = new Funcionario("ADMINISTRADOR", "00000000", 123456);
+	private Reserva[] reservas = new Reserva[100];
+	private int numReservas = 0;
 	private Scanner input = new Scanner(System.in);
+	
+	public boolean efetuarLogin() {
+		String nome;
+		int senha;
+		System.out.println("USUARIO: ");
+		nome = input.nextLine();
+		System.out.println("SENHA: ");
+		senha = input.nextInt();
+		input.nextLine();
+		if(nome.equals("ADMINISTRADOR") && senha==123456) {
+			currentUser.setNome(nome);
+			currentUser.setSenha(senha);
+			return true;
+		} else if(numFuncionarios>0) {
+			for(int i=0; i<=numFuncionarios; i++) {
+				if(funcionarios[i].autentica(nome, senha)) {
+					currentUser.setNome(nome);
+					currentUser.setSenha(senha);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public int pegaOpcao() {
 		System.out.println("0. Logout");
@@ -33,9 +62,11 @@ public class InterfaceDeUsuario {
 		Cliente cliente;
 		Funcionario funcionario;
 		Quarto quarto;
+		Reserva reserva;
 		String nome, cpf;
-		int numero, capacidade, senha;
-		double diaria;
+		Calendar auxDataIni, auxDataFim;
+		int numero, capacidade, senha, iDia, iMes, iAno, fDia, fMes, fAno;
+		double diaria, montanteReservas;
 		
 		int opcao = this.pegaOpcao();
 		while(opcao!=0) {
@@ -77,14 +108,81 @@ public class InterfaceDeUsuario {
 				break;
 			case 4:
 				//Consultar quartos dispon�veis para reserva em um determinado per�odo
+				System.out.println("Digite a data inicial da reserva:");
+				System.out.println("DIA:");
+				iDia = input.nextInt();
+				System.out.println("MES:");
+				iMes = input.nextInt();
+				System.out.println("ANO:");
+				iAno = input.nextInt();
+				auxDataIni = new GregorianCalendar(iDia, iMes-1, iAno);
+				System.out.println("Digite a data final da reserva:");
+				System.out.println("DIA:");
+				fDia = input.nextInt();
+				System.out.println("MES:");
+				fMes = input.nextInt();
+				System.out.println("ANO:");
+				fAno = input.nextInt();
+				auxDataFim = new GregorianCalendar(fDia, fMes-1, fAno);
+				System.out.println("Quartos disponíveis");
+				for(int i=0;i<numQuartos;i++) {
+					for(int j=0;j<numReservas;j++) {
+						if(reservas[j].verificaDisponibilidade(auxDataIni, auxDataFim)) {
+							System.out.println("Quarto: " + reservas[j].getQuarto().getNumero());
+						}
+					}
+				}
+				
 				break;
 			case 5:
-				//Realizar reserva
-				
+				//Realizar reserva ARRUMAR
+				cliente = null;
+				quarto = null;
+				System.out.println("Cpf do Cliente: ");
+				input.nextLine();
+				cpf = input.nextLine();
+				for(int i=0; i<numClientes; i++) {
+					if(clientes[i].getCpf().equals(cpf)) {
+						
+						cliente = clientes[i];
+						System.out.println("Cliente Encontrado");
+						break;
+					}
+				}
+				System.out.println("Numero do Quarto: ");
+				numero = input.nextInt();
+				for(int i=0; i<numQuartos; i++) {
+					if(quartos[i].getNumero()==numero) {
+						quarto = quartos[i];
+						System.out.println("Quarto Encontrado");
+						break;
+					}
+				}
+				System.out.println("DATA INICIAL DA RESERVA: ");
+				System.out.println("DIA: ");
+				iDia = input.nextInt();
+				System.out.println("MES: ");
+				iMes = input.nextInt();
+				System.out.println("ANO: ");
+				iAno = input.nextInt();
+				auxDataIni = new GregorianCalendar(iAno, iMes-1, iDia);
+				System.out.println("DATA FINAL DA RESERVA: ");
+				System.out.println("DIA: ");
+				fDia = input.nextInt();
+				System.out.println("MES: ");
+				fMes = input.nextInt();
+				System.out.println("ANO: ");
+				fAno = input.nextInt();
+				auxDataFim = new GregorianCalendar(fAno, fMes-1, fDia);
+				reserva = new Reserva(cliente, quarto, currentUser, auxDataIni, auxDataFim);
+				reservas[numReservas++] = reserva;
 				break;
 			case 6:
-				//Apresentar reservas registradas
-				
+				//Apresentar reservas registradas 
+				System.out.println("Reservas: ");
+				for(int i=0;i<numReservas;i++) {
+					reservas[i].mostrar();
+				}
 				break;
 			case 7:
 				//Apresentar clientes cadastrados
@@ -94,7 +192,11 @@ public class InterfaceDeUsuario {
 				break;
 			case 8:
 				//Apresentar a receita prevista com as reservas registradas atualmente, por quarto
-				
+				montanteReservas = 0;
+				for(int i=0;i<numReservas;i++) {
+					montanteReservas += reservas[i].getValorReserva();
+				}
+				System.out.println("Montante: "+ montanteReservas);
 				break;	
 			}
 			opcao = this.pegaOpcao();

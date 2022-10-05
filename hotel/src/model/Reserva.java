@@ -1,31 +1,93 @@
 package model;
 
 import java.text.SimpleDateFormat;
-//import java.util.Date;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class Reserva {
 	
-	private Cliente cliente = null;
-	private Calendar diaInicio = null;
-	private Calendar diaTermino = null;
+	private Cliente cliente;
+	private Quarto  quarto;
+	private Calendar diaInicio, diaTermino;
+	private Funcionario funcionario;
 	
 
-	public void verificaReserva() {
+	public Reserva(Cliente cliente, Quarto quarto, Funcionario funcionario, Calendar diaInicio, Calendar diaTermino) {
+		super();
+		this.cliente = cliente;
+		this.quarto = quarto;
+		this.diaInicio = diaInicio;
+		this.diaTermino = diaTermino;
+		this.funcionario = funcionario;
+	}
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+	public Quarto getQuarto() {
+		return quarto;
+	}
+
+
+	public void setQuarto(Quarto quarto) {
+		this.quarto = quarto;
+	}
+
+
+	public Calendar getDiaInicio() {
+		return diaInicio;
+	}
+
+
+	public void setDiaInicio(Calendar diaInicio) {
+		this.diaInicio = diaInicio;
+	}
+
+
+	public Calendar getDiaTermino() {
+		return diaTermino;
+	}
+
+
+	public void setDiaTermino(Calendar diaTermino) {
+		this.diaTermino = diaTermino;
+	}
+
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+
+	public boolean verificaDisponibilidade(Calendar d1, Calendar d2) {
+		if(d1.after(this.diaInicio) && d1.before(this.diaTermino) || d2.after(this.diaInicio) && d2.before(this.diaTermino)) {
+			return false;
+		}
+		return true;
+	}
+	public void mostrar() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	
-		Calendar c1 = Calendar.getInstance();
-		Calendar c2 = new GregorianCalendar(2022, Calendar.OCTOBER, 10);
-		Calendar c3 = new GregorianCalendar(2022, Calendar.OCTOBER, 5);
-		// Verificar se a data especificada est� entre duas datas
-		/*
-		if(c3.compareTo(c1)>=0 && c3.compareTo(c2)<=0) {
-			System.out.println(sdf.format(c3.getTime())+"Data est� entre  as duas");
-		}
-		*/
-		if(c3.after(c1) && c3.before(c2)) {
-			System.out.println(sdf.format(c3.getTime())+"Data est� entre  as duas");
-		}
+		System.out.println("Cliente: "+this.cliente.getNome());
+		System.out.println("Quarto: "+this.quarto.getNumero());
+		System.out.println("Funcionario responsavel: "+this.funcionario.getNome());
+		System.out.println("Data inicio: "+sdf.format(this.diaInicio.getTime()));
+		System.out.println("Data Termino: "+sdf.format(this.diaTermino.getTime()));
+	}
+	public double getValorReserva() {
+		double valor = this.quarto.getDiaria() * ChronoUnit.DAYS.between(this.diaInicio.toInstant(), this.diaTermino.toInstant());
+		return valor;
 	}
 }

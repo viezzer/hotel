@@ -4,7 +4,6 @@ public class Quarto {
 	private int numero;
 	private int capacidade;
 	private double diaria;
-	private Reserva reserva;
 
 	public Quarto(int numero, int capacidade, double diaria) {
 		super();
@@ -31,10 +30,5 @@ public class Quarto {
 	public void setDiaria(double diaria) {
 		this.diaria = diaria;
 	}
-	public Reserva getReserva() {
-		return reserva;
-	}
-	public void setReserva(Reserva reserva) {
-		this.reserva = reserva;
-	}
+	
 }
