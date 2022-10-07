@@ -73,13 +73,13 @@ public class Reserva {
 
 
 	public boolean verificaDisponibilidade(Calendar d1, Calendar d2) {
-		if((d1.after(this.diaInicio) && d1.before(this.diaTermino)) || (d2.after(this.diaInicio) && d2.before(this.diaTermino))) {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+		System.out.println("d1"+sdf.format(d1.getTime()));
+		System.out.println("d2"+sdf.format(d2.getTime()));
+		if(((d1.after(this.diaInicio) && d1.before(this.diaTermino)) || (d2.after(this.diaInicio) && d2.before(this.diaTermino))) 
+				|| (d1.before(this.diaInicio) && (d2.after(diaTermino)))) {
 			return false;
 		}
-		/*System.out.println(d1.getTime());
-		System.out.println(d2.getTime());
-		System.out.println(this.diaInicio);
-		System.out.println(this.diaTermino);*/
 		return true;
 	}
 	public void mostrar() {

@@ -117,7 +117,8 @@ public class InterfaceDeUsuario {
 				iMes = input.nextInt();
 				System.out.println("ANO:");
 				iAno = input.nextInt();
-				auxDataIni = new GregorianCalendar(iDia, iMes-1, iAno);
+				//auxDataIni = new GregorianCalendar(iDia, iMes-1, iAno);
+				auxDataIni = new GregorianCalendar(iAno, iMes-1, iDia);
 				System.out.println("Digite a data final da reserva:");
 				System.out.println("DIA:");
 				fDia = input.nextInt();
@@ -125,8 +126,10 @@ public class InterfaceDeUsuario {
 				fMes = input.nextInt();
 				System.out.println("ANO:");
 				fAno = input.nextInt();
-				auxDataFim = new GregorianCalendar(fDia, fMes-1, fAno);
+				//auxDataFim = new GregorianCalendar(fDia, fMes-1, fAno);
+				auxDataFim = new GregorianCalendar(fAno, fMes-1, fDia);
 				System.out.println(sdf.format(auxDataIni.getTime()));
+				//System.out.println(sdf.format(auxDataIni2.getTime()));
 				System.out.println(sdf.format(auxDataFim.getTime()));
 				for(int i=0;i<numQuartos;i++) {
 					boolean disponivel = true;
