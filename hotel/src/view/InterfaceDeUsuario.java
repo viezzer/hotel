@@ -1,6 +1,7 @@
 package view;
 
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import model.Cliente;
@@ -19,6 +20,7 @@ public class InterfaceDeUsuario {
 	private Reserva[] reservas = new Reserva[100];
 	private int numReservas = 0;
 	private Scanner input = new Scanner(System.in);
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public boolean efetuarLogin() {
 		String nome;
@@ -33,7 +35,7 @@ public class InterfaceDeUsuario {
 			currentUser.setSenha(senha);
 			return true;
 		} else if(numFuncionarios>0) {
-			for(int i=0; i<=numFuncionarios; i++) {
+			for(int i=0;i<numFuncionarios; i++) {
 				if(funcionarios[i].autentica(nome, senha)) {
 					currentUser.setNome(nome);
 					currentUser.setSenha(senha);
@@ -124,14 +126,25 @@ public class InterfaceDeUsuario {
 				System.out.println("ANO:");
 				fAno = input.nextInt();
 				auxDataFim = new GregorianCalendar(fDia, fMes-1, fAno);
-				System.out.println("Quartos disponíveis");
+				System.out.println(sdf.format(auxDataIni.getTime()));
+				System.out.println(sdf.format(auxDataFim.getTime()));
 				for(int i=0;i<numQuartos;i++) {
+					boolean disponivel = true;
 					for(int j=0;j<numReservas;j++) {
-						if(reservas[j].verificaDisponibilidade(auxDataIni, auxDataFim)) {
-							System.out.println("Quarto: " + reservas[j].getQuarto().getNumero());
+						if(reservas[j].getQuarto().getNumero()==quartos[i].getNumero()) {
+							if(reservas[j].verificaDisponibilidade(auxDataIni, auxDataFim)) {
+								disponivel = true;
+							} else {
+								disponivel = false;
+								break;
+							}
 						}
 					}
+					if(disponivel) {
+						System.out.println("Quarto "+quartos[i].getNumero()+" disponivel");
+					}
 				}
+				
 				
 				break;
 			case 5:
@@ -148,6 +161,9 @@ public class InterfaceDeUsuario {
 						System.out.println("Cliente Encontrado");
 						break;
 					}
+				}
+				if(cliente==null) {
+					break;
 				}
 				System.out.println("Numero do Quarto: ");
 				numero = input.nextInt();
@@ -201,6 +217,7 @@ public class InterfaceDeUsuario {
 			}
 			opcao = this.pegaOpcao();
 		}
+		input.nextLine();
 	}
 }
 		

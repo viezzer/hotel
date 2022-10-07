@@ -9,10 +9,10 @@ public class Principal {
 		
 		while(appRodando) {
 			if(i.efetuarLogin()) {
-				System.out.println("Usuário autenticado.");
+				System.out.println("Usuario autenticado.");
 				i.menuPrincipal();
 			} else {
-				System.out.println("Usuário não autenticado");
+				System.out.println("Usuario nao autenticado");
 			}
 		}
 	}
